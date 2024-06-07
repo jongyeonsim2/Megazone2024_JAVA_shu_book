@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BankStatementAnalyzerProblematic {
 
-    private static final String RESOURCES = "src/main/resources/";
+    private static final String RESOURCES = "src/main/resource/";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static void main(final String[] args) throws IOException {
