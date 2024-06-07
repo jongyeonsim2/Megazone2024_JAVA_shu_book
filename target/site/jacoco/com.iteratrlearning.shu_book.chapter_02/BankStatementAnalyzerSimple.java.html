@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankStatementAnalyzerSimple.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_02</a> &gt; <span class="el_source">BankStatementAnalyzerSimple.java</span></div><h1>BankStatementAnalyzerSimple.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_02;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+
+<span class="nc" id="L14">public class BankStatementAnalyzerSimple {</span>
+
+    private static final String RESOURCES = &quot;src/main/resource/&quot;;
+
+    /**
+     * 입출금 금액의 합산 기능을 구현.
+     * 
+     */
+    
+    public static void main(final String[] args) throws Exception {
+    		// 파일 접근
+<span class="nc" id="L25">            final Path path = Paths.get(RESOURCES + &quot;bank-data-simple.csv&quot;);</span>
+            // 파일 내용 읽음
+<span class="nc" id="L27">            final List&lt;String&gt; lines = Files.readAllLines(path);</span>
+            
+            // **************** 파일 읽기 *****************
+            
+<span class="nc" id="L31">            double total = 0;</span>
+            // 첫 행 ~ 마지막 행의 2번째 칼럼의 금액 정보 추출 후 누계
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            for(final String line: lines) {</span>
+            	// &quot;,&quot; 를 기준으로 token 을 추출
+<span class="nc" id="L35">                String[] columns = line.split(&quot;,&quot;);</span>
+                // 두 번째 token(입출금 금액정보) 을 더하기 위한 자료형으로 변환
+<span class="nc" id="L37">                double amount = Double.parseDouble(columns[1]);</span>
+                
+                
+                // ****************** 파싱 *********************
+                
+                // 누계
+<span class="nc" id="L43">                total += amount;</span>
+                
+                // ***************** 데이터 처리 *****************
+            }
+
+            // ***************** 보고서 작성 ***************
+<span class="nc" id="L49">            System.out.println(&quot;The total for all transactions is &quot; + total);</span>
+<span class="nc" id="L50">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

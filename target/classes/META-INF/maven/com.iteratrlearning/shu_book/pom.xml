@@ -23,6 +23,8 @@
                 </configuration>
             </plugin>
             
+            
+            <!-- jacoco 코드 커버리지 관련 start -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -78,6 +80,8 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- jacoco 코드 커버리지 관련 end -->
+            
         </plugins>
     </build>
 
@@ -96,12 +100,13 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- jacoco 코드 커버리지 관련 start -->
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.7</version>
         </dependency>
-        
+        <!-- jacoco 코드 커버리지 관련 end -->
         
         
         <dependency>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TextFile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_04</a> &gt; <span class="el_source">TextFile.java</span></div><h1>TextFile.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_04;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+
+import static com.iteratrlearning.shu_book.chapter_04.Attributes.PATH;
+import static java.util.stream.Collectors.toList;
+
+// tag::classDefinition[]
+class TextFile {
+    private final Map&lt;String, String&gt; attributes;
+    private final List&lt;String&gt; lines;
+
+    // class continues ...
+// end::classDefinition[]
+
+<span class="fc" id="L22">    TextFile(final File file) throws IOException {</span>
+<span class="fc" id="L23">        attributes = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L24">        attributes.put(PATH, file.getPath());</span>
+<span class="fc" id="L25">        lines = Files.lines(file.toPath()).collect(toList());</span>
+<span class="fc" id="L26">    }</span>
+
+    Map&lt;String, String&gt; getAttributes() {
+<span class="fc" id="L29">        return attributes;</span>
+    }
+
+    // tag::addLines[]
+    int addLines(
+        final int start,
+        final Predicate&lt;String&gt; isEnd,
+        final String attributeName) {
+
+<span class="fc" id="L38">        final StringBuilder accumulator = new StringBuilder();</span>
+        int lineNumber;
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        for (lineNumber = start; lineNumber &lt; lines.size(); lineNumber++) {</span>
+<span class="fc" id="L41">            final String line = lines.get(lineNumber);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            if (isEnd.test(line)) {</span>
+<span class="fc" id="L43">                break;</span>
+            }
+
+<span class="fc" id="L46">            accumulator.append(line);</span>
+<span class="fc" id="L47">            accumulator.append(&quot;\n&quot;);</span>
+        }
+<span class="fc" id="L49">        attributes.put(attributeName, accumulator.toString().trim());</span>
+<span class="fc" id="L50">        return lineNumber;</span>
+    }
+    // end::addLines[]
+
+    // tag::addLineSuffix[]
+    void addLineSuffix(final String prefix, final String attributeName) {
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        for(final String line: lines) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (line.startsWith(prefix)) {</span>
+<span class="fc" id="L58">                attributes.put(attributeName, line.substring(prefix.length()));</span>
+<span class="fc" id="L59">                break;</span>
+            }
+        }
+<span class="fc" id="L62">    }</span>
+    // end::addLineSuffix[]
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocumentManagementSystem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_04</a> &gt; <span class="el_source">DocumentManagementSystem.java</span></div><h1>DocumentManagementSystem.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_04;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.unmodifiableList;
+
+public class DocumentManagementSystem {
+<span class="fc" id="L12">    private final List&lt;Document&gt; documents = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L13">    private final List&lt;Document&gt; documentsView = unmodifiableList(documents);</span>
+    // tag::importer_lookup[]
+<span class="fc" id="L15">    private final Map&lt;String, Importer&gt; extensionToImporter = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L17">    public DocumentManagementSystem() {</span>
+<span class="fc" id="L18">        extensionToImporter.put(&quot;letter&quot;, new LetterImporter());</span>
+<span class="fc" id="L19">        extensionToImporter.put(&quot;report&quot;, new ReportImporter());</span>
+<span class="fc" id="L20">        extensionToImporter.put(&quot;jpg&quot;, new ImageImporter());</span>
+<span class="fc" id="L21">    }</span>
+    // end::importer_lookup[]
+    {
+<span class="fc" id="L24">        extensionToImporter.put(&quot;invoice&quot;, new InvoiceImporter());</span>
+    }
+
+    // tag::importFile[]
+    public void importFile(final String path) throws IOException {
+<span class="fc" id="L29">        final File file = new File(path);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (!file.exists()) {</span>
+<span class="fc" id="L31">            throw new FileNotFoundException(path);</span>
+        }
+
+<span class="fc" id="L34">        final int separatorIndex = path.lastIndexOf('.');</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (separatorIndex != -1) {</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">            if (separatorIndex == path.length()) {</span>
+<span class="nc" id="L37">                throw new UnknownFileTypeException(&quot;No extension found For file: &quot; + path);</span>
+            }
+<span class="fc" id="L39">            final String extension = path.substring(separatorIndex + 1);</span>
+<span class="fc" id="L40">            final Importer importer = extensionToImporter.get(extension);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if (importer == null) {</span>
+<span class="fc" id="L42">                throw new UnknownFileTypeException(&quot;For file: &quot; + path);</span>
+            }
+
+<span class="fc" id="L45">            final Document document = importer.importFile(file);</span>
+<span class="fc" id="L46">            documents.add(document);</span>
+<span class="fc" id="L47">        } else {</span>
+<span class="nc" id="L48">            throw new UnknownFileTypeException(&quot;No extension found For file: &quot; + path);</span>
+        }
+<span class="fc" id="L50">    }</span>
+    // end::importFile[]
+
+    public List&lt;Document&gt; contents() {
+<span class="fc" id="L54">        return documentsView;</span>
+    }
+
+    public List&lt;Document&gt; search(final String query) {
+<span class="fc" id="L58">        return documents.stream()</span>
+<span class="fc" id="L59">                        .filter(Query.parse(query))</span>
+<span class="fc" id="L60">                        .collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

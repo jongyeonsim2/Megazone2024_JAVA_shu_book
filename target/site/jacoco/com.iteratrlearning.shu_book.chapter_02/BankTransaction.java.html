@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_02</a> &gt; <span class="el_source">BankTransaction.java</span></div><h1>BankTransaction.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_02;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+// Domain Entity Classs =&gt; 입출금 내역 정보를 관리하는 클래스
+// 한 행은 BankTransaction 으로 표현이 됨.
+// =&gt; 가독성, 유지보수성이 높아짐.
+public class BankTransaction {
+	// CSV 파일의 한 행의 3개의 칼럼.
+	// 첫번째 칼럼 : [0], 두 번째 칼럼 : [1], 세 번째 칼럼 : [2]
+	// 가독성이 많이 개선됨.
+    private final LocalDate date;
+    private final double amount;
+    private final String description;
+
+
+<span class="fc" id="L18">    public BankTransaction(final LocalDate date, final double amount, final String description) {</span>
+<span class="fc" id="L19">        this.date = date;</span>
+<span class="fc" id="L20">        this.amount = amount;</span>
+<span class="fc" id="L21">        this.description = description;</span>
+<span class="fc" id="L22">    }</span>
+
+    public LocalDate getDate() {
+<span class="fc" id="L25">        return date;</span>
+    }
+
+    public double getAmount() {
+<span class="fc" id="L29">        return amount;</span>
+    }
+
+    public String getDescription() {
+<span class="fc" id="L33">        return description;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L38">        return &quot;BankTransaction{&quot; +</span>
+<span class="nc" id="L39">                &quot;date=&quot; + date +</span>
+<span class="nc" id="L40">                &quot;, amount=&quot; + amount +</span>
+<span class="nc" id="L41">                &quot;, description='&quot; + description + '\'' +</span>
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L48" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="nc" id="L49">        BankTransaction that = (BankTransaction) o;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        return Double.compare(that.amount, amount) == 0 &amp;&amp;</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                date.equals(that.date) &amp;&amp;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                description.equals(that.description);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L57">        return Objects.hash(date, amount, description);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

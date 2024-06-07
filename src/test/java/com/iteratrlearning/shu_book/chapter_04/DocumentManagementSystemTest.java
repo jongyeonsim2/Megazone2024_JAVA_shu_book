@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class DocumentManagementSystemTest
 {
     private static final String RESOURCES =
-        "src" + File.separator + "test" + File.separator + "resources" + File.separator;
+        "src" + File.separator + "test" + File.separator + "resource" + File.separator;
     private static final String LETTER = RESOURCES + "patient.letter";
     private static final String REPORT = RESOURCES + "patient.report";
     private static final String XRAY = RESOURCES + "xray.jpg";

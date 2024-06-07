@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Query.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_04</a> &gt; <span class="el_source">Query.java</span></div><h1>Query.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_04;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toMap;
+
+class Query implements Predicate&lt;Document&gt; {
+    private final Map&lt;String, String&gt; clauses;
+
+    static Query parse(final String query) {
+<span class="fc" id="L13">        return new Query(Arrays.stream(query.split(&quot;,&quot;))</span>
+<span class="fc" id="L14">              .map(str -&gt; str.split(&quot;:&quot;))</span>
+<span class="fc" id="L15">              .collect(toMap(x -&gt; x[0], x -&gt; x[1])));</span>
+    }
+
+<span class="fc" id="L18">    private Query(final Map&lt;String, String&gt; clauses) {</span>
+<span class="fc" id="L19">        this.clauses = clauses;</span>
+<span class="fc" id="L20">    }</span>
+
+    @Override
+    public boolean test(final Document document) {
+<span class="fc" id="L24">        return clauses.entrySet()</span>
+<span class="fc" id="L25">                      .stream()</span>
+<span class="fc" id="L26">                      .allMatch(entry -&gt; {</span>
+<span class="fc" id="L27">                          final String documentValue = document.getAttribute(entry.getKey());</span>
+<span class="fc" id="L28">                          final String queryValue = entry.getValue();</span>
+<span class="fc bfc" id="L29" title="All 4 branches covered.">                          return documentValue != null &amp;&amp; documentValue.contains(queryValue);</span>
+                      });
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
