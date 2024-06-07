@@ -1,6 +1,8 @@
 package com.iteratrlearning.shu_book.chapter_03;
 
 public class HtmlExporter implements Exporter {
+	
+	// html tag 로 구성된 String 을 반환.
     @Override
     public String export(final SummaryStatistics summaryStatistics) {
         String result = "<!doctype html>";

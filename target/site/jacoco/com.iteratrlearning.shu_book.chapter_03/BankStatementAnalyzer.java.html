@@ -11,7 +11,7 @@ import java.time.Month;
 import java.util.List;
 
 <span class="nc" id="L13">public class BankStatementAnalyzer {</span>
-    private static final String RESOURCES = &quot;src/main/resources/&quot;;
+    private static final String RESOURCES = &quot;src/main/resource/&quot;;
 
     public void analyze(final String fileName,
                         final BankStatementParser bankStatementParser,
@@ -22,13 +22,15 @@ import java.util.List;
 
 <span class="nc" id="L23">        final List&lt;BankTransaction&gt; bankTransactions = bankStatementParser.parseLinesFrom(lines);</span>
 
-<span class="nc" id="L25">        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);</span>
+        // 여기까지는 ch2 와 동일함.
+        
+<span class="nc" id="L27">        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);</span>
 
-<span class="nc" id="L27">        final SummaryStatistics summaryStatistics = bankStatementProcessor.summarizeTransactions();</span>
+<span class="nc" id="L29">        final SummaryStatistics summaryStatistics = bankStatementProcessor.summarizeTransactions();</span>
 
-<span class="nc" id="L29">        System.out.println(exporter.export(summaryStatistics));</span>
+<span class="nc" id="L31">        System.out.println(exporter.export(summaryStatistics));</span>
 
-<span class="nc" id="L31">    }</span>
+<span class="nc" id="L33">    }</span>
 
 
 }

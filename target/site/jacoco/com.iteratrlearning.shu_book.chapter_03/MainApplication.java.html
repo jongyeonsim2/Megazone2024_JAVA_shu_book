@@ -11,10 +11,19 @@
 <span class="nc" id="L11">        final BankStatementParser bankStatementParser</span>
 <span class="nc" id="L12">                = new BankStatementCSVParser();</span>
 
-<span class="nc" id="L14">        final Exporter exporter = new HtmlExporter();</span>
+        // 보고서를 html 포맷으로 생성.
+        // 향후에 excle 포맷으로 새로운 요구 사항이 발생한다면.....
+        // 따라서, 느슨한 결합으로 구현.
+<span class="nc" id="L17">        final Exporter exporter = new HtmlExporter();</span>
 
-<span class="nc" id="L16">        bankStatementAnalyzer.analyze(&quot;bank-data-simple.csv&quot;, bankStatementParser, exporter);</span>
+        // ch2에서는 매개변수가 두 개였으나,
+        // 이제는 콘솔에 출력하는게 아니고, html 로 출력해야 함.
+        // 따라서, 마지막 매개변수에 HtmlExporter 인스턴스를 전달.
+<span class="nc" id="L22">        bankStatementAnalyzer.analyze(</span>
+<span class="nc" id="L23">        		&quot;bank-data-simple.csv&quot;, </span>
+<span class="nc" id="L24">        		bankStatementParser, </span>
+<span class="nc" id="L25">        		exporter);</span>
 
-<span class="nc" id="L18">    }</span>
+<span class="nc" id="L27">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

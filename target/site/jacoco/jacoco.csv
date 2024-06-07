@@ -20,10 +20,10 @@ shu_book,com.iteratrlearning.shu_book.chapter_05,RuleBuilder,18,0,0,0,5,0,3,0,3,
 shu_book,com.iteratrlearning.shu_book.chapter_05,Facts,0,21,0,0,0,5,0,3,0,3
 shu_book,com.iteratrlearning.shu_book.chapter_05,Stage,44,0,0,0,2,0,1,0,1,0
 shu_book,com.iteratrlearning.shu_book.chapter_03,HtmlExporter,48,0,0,0,14,0,2,0,2,0
-shu_book,com.iteratrlearning.shu_book.chapter_03,BankStatementProcessor,72,32,6,4,14,8,9,4,6,2
+shu_book,com.iteratrlearning.shu_book.chapter_03,BankStatementProcessor,72,32,6,4,16,8,9,4,6,2
 shu_book,com.iteratrlearning.shu_book.chapter_03,BankTransaction,66,23,11,1,11,8,9,4,3,4
 shu_book,com.iteratrlearning.shu_book.chapter_03,BankStatementCSVParser,40,0,0,0,7,0,4,0,4,0
-shu_book,com.iteratrlearning.shu_book.chapter_03,MainApplication,21,0,0,0,8,0,2,0,2,0
+shu_book,com.iteratrlearning.shu_book.chapter_03,MainApplication,21,0,0,0,11,0,2,0,2,0
 shu_book,com.iteratrlearning.shu_book.chapter_03,SummaryStatistics,27,0,0,0,10,0,5,0,5,0
 shu_book,com.iteratrlearning.shu_book.chapter_03,BankStatementAnalyzer,30,0,0,0,8,0,2,0,2,0
 shu_book,com.iteratrlearning.shu_book.chapter_04,TextFile,0,95,1,7,0,20,1,7,0,4
