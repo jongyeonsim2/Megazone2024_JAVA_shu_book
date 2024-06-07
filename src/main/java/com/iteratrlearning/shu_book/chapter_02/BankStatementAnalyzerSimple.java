@@ -22,7 +22,11 @@ public class BankStatementAnalyzerSimple {
     
     public static void main(final String[] args) throws Exception {
     		// 파일 접근
-            final Path path = Paths.get(RESOURCES + "bank-data-simple.csv");
+            //final Path path = Paths.get(RESOURCES + "bank-data-simple.csv");
+            
+    		// java BankStatementAnalyzerSimple bank-data-simple.csv
+            final Path path = Paths.get(RESOURCES + args[0]);
+            
             // 파일 내용 읽음
             final List<String> lines = Files.readAllLines(path);
             

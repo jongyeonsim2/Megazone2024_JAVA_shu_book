@@ -4,10 +4,20 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ch3 에서 가장 중요한 클래스임.
  * 
+ * OCP 를 적용해서 정말 좋은점이 많다는 것을 알게 되었으나,
+ * 과하면 좋지 않은 점도 있음. 
+ * 
+ * 함수형 인터페이스가 너무 많이 늘어나게 되는 점이 문제가 될 수 있음.
+ * - 파악해야 할 메소드가 많아지게 되어, 복잡도가 높아지게 됨.
+ * 
+ * 이러한 전체적인 상황 : 명시적 API 제공 vs 암묵적 API 제공
+ * 
+ * 관리기준을 새로 팀내에서 세워야 함.(우선순위 등을 고려하게 됨.)
  * 
  * 
  */
@@ -50,6 +60,8 @@ public class BankStatementProcessor {
     
     // calculateTotalInMonth() -> summarizeTransactions() 호출함.
     // 입출금 내역 리스트를 반복처리 기능이 있는 메소드.
+    // OCP 를 적용하기 위해서, 함수형 IF 를 매개변수로 사용함.
+    // 함수형 IF => BankTransactionSummarizer class 임.
     public double summarizeTransactions(final BankTransactionSummarizer bankTransactionSummarizer) {
         double result = 0;
         for (final BankTransaction bankTransaction : bankTransactions) {
@@ -58,6 +70,7 @@ public class BankStatementProcessor {
         return result;
     }
 
+    
     // 메소드에는 아래의 1, 2에 대한 조건식을 표현함.
     // 1. 조건에 맞는 월이면, 현재 달의 입출금액을 가져와서 합산.
     // 2. 조건에 맞지 않는 월이면, 합산하지 않음.
@@ -90,6 +103,31 @@ public class BankStatementProcessor {
      * 바로 위의 메소드인 summarizeTransactions() 호출할 때, 람다식으로 매개변수로 전달함.
      * 바로 람다식 전달이 이해가 안되면 풀어서 생각하면됨.
      * 
+     * 1. 익명클래스로 객체를 생성해서 매개변수로 전달하는 방법.
+     * 
+     * final BankTransactionSummarizer bankTransactionSummarizer =
+     * 		
+     * 		new BankTransactionSummarizer(
+     * 			double summarize(double accumulator, 
+     * 					BankTransaction bankTransaction) {
+     * 				return bankTransaction.getDate().getMonth() == month 
+                	? accumulator + bankTransaction.getAmount() : accumulator);
+     * 			}
+     * 		);
+     * 
+     * 
+     * 2. 익명클래스로 줄여서 람다식으로 전달하는 방법.
+     * 
+     * final BankTransactionSummarizer bankTransactionSummarizer =
+     * 		
+     * 		
+     * 			(accumulator, bankTransaction) 
+     * 			->
+     *  			 bankTransaction.getDate().getMonth() == month 
+                	? accumulator + bankTransaction.getAmount() : accumulator)
+     * 			
+     * 		
+     * 
      */
     
     
@@ -115,11 +153,23 @@ public class BankStatementProcessor {
     
     // findTransactionsGreaterThanEqual() -> findTransactions() 호출함.
     public List<BankTransaction> findTransactionsGreaterThanEqual(final int amount) {
-        return findTransactions(bankTransaction -> 
+
+    	return findTransactions(bankTransaction -> 
         						
         						bankTransaction.getAmount() >= amount//조건식
         						
         						);
+
+        // 바로 처리하게 되는 경우라면 => Stream 을 활용해서 바로 처리하는 방법도 고려.
+        // Stream 을 적용한다는 것은
+    	// 중간 연산, 최종 연산 결과로 List<BankTransaction> 로 반환하면 됨.
+    	/*
+    	return this.bankTransactions
+    			.stream()
+    			.filter(bankTransaction -> bankTransaction.getAmount() >= amount)
+    			.collect(Collectors.toList());
+    	*/
+    	
     }
 
     public List<BankTransaction> findTransactions(final BankTransactionFilter bankTransactionFilter) {
