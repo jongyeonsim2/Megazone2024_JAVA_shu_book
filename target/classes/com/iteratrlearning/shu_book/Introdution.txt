@@ -2,8 +2,10 @@
 // 학습목표
    - 학습한 자바 지식을 활용해서 SOLID 를 적용 및 학습.
      아래의 개념 이해, class 및 interface 로 어떻게 표현이되고, 구현이 되는지.
-     SRP 원칙
-     OCP 원칙
+     SRP 원칙 : chapter 2
+     			SRP : Single Responsibility Principle, 단일책임원칙 => 클래스 분할
+     OCP 원칙 : chapter 3
+     			OCP : Open/Closed Principle, 개방폐쇠원칙 => 람다식 활용 => 함수형 인터페이스 활용
      LSP 원칙
      ISP 원칙
      DIP 원칙

@@ -21,18 +21,20 @@ public class BankStatementProcessor {
         }
         return total;
     }
-
-    // 입출금 내역의 총액 계산 : 월에 대한 조건
-    public double calculateTotalInMonth(final Month month) {
+    
+    public double calculateTotalInMonth3(final Month month) {
         double total = 0;
         for (final BankTransaction bankTransaction : bankTransactions) {
-            if (bankTransaction.getDate().getMonth() == month) {
+           
+        	// 입출금 내역을 조회 조건 : 입출금 금액
+            if (bankTransaction.getAmount() > 1_000) {
 
                 total += bankTransaction.getAmount();
             }
         }
         return total;
     }
+    
 
     // 입출금 내역의 총액 계산 : 입출금 내역에 대한 조건
     public double calculateTotalForCategory(final String category) {

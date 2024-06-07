@@ -11,7 +11,7 @@ import java.time.Month;
 import java.util.List;
 
 public class BankStatementAnalyzer {
-    private static final String RESOURCES = "src/main/resources/";
+    private static final String RESOURCES = "src/main/resource/";
 
     public void analyze(final String fileName,
                         final BankStatementParser bankStatementParser,
