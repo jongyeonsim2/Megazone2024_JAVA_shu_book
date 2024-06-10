@@ -79,10 +79,15 @@ public class DocumentManagementSystem {
 
     /*
      * 검색
+     * 
+     * 검색 조건 문자열 : "patient:Joe,body:Diet Coke"
      */
     public List<Document> search(final String query) {
         return documents.stream()
                         .filter(Query.parse(query))// Predicate 함수형 IF
+                        		// Query.parse(query)
+                        		// API 사용의 편리성. => 캡슐화가 되었기 때문.
+                        		//   생성자가 보이지 않음.
                         .collect(Collectors.toList());
     }
 }

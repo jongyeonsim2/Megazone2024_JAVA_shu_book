@@ -23,9 +23,13 @@
 
 	4. 검색 : SRP(단일 책임 원칙), 함수형 인터페이스 구현 Predicate<Document>, 캡슐화
 		- Query
+		- 캡슐화
+		  사용자 API 접근성을 향상시킴.
+		  복잡도를 낮춤.
 		
 	5. 예외
 		- UnknownFileTypeException
+		  RuntimeException 으로 구현함.
 
 
 
@@ -34,7 +38,7 @@
 - 단위 테스트 구조
 
 	0. 단위 테스트 클래스
-		- DocumentManagementSystemTest
+		- DocumentManagementSystemTest => 리팩토링 대상, SOLID 를 적용.
 		
 	1. 단위 테스트용 메타 데이터
 	   
@@ -51,7 +55,7 @@
 	   2.2 검색 관련
 	    - shouldBeAbleToSearchFilesByAttributes()
 
-	   2.2 파일 관련
+	   2.2 파일 관련 => 예상된 Exception 발생을 검증
 	    - shouldNotImportMissingFile()
 	    - shouldNotImportUnknownFile()
 	
