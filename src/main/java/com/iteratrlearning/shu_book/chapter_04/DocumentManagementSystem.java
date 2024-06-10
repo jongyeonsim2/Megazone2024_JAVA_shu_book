@@ -53,12 +53,19 @@ public class DocumentManagementSystem {
                 throw new UnknownFileTypeException("No extension found For file: " + path);
             }
             final String extension = path.substring(separatorIndex + 1);
+            
+            // 파일 확장자별로 임포트가 등록되어 있어, 조회하면, 임포터가 반환됨.
             final Importer importer = extensionToImporter.get(extension);
             if (importer == null) {
                 throw new UnknownFileTypeException("For file: " + path);
             }
 
+            // 전용 임포터가 대상 파일의 임포트를 처리.
+            // 완료 후 Document 가 반환됨.
+            // 직접 구현체를 사용하지 않으므로, 약한 결합.
             final Document document = importer.importFile(file);
+            
+            // 문서 관리 시스템에 임포트 완료된 파일 정보를 문서로 등록.
             documents.add(document);
         } else {
             throw new UnknownFileTypeException("No extension found For file: " + path);

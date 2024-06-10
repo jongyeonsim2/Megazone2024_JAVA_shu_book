@@ -21,6 +21,8 @@ class LetterImporter implements Importer {
 
         final Map<String, String> attributes = textFile.getAttributes();
         attributes.put(TYPE, "LETTER");
+        
+        // LSP 후행조건을 만족
         return new Document(attributes);
     }
     // end::importFile[]

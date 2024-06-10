@@ -14,6 +14,9 @@ import static java.util.stream.Collectors.toList;
 // tag::classDefinition[]
 class TextFile {
     private final Map<String, String> attributes;
+    
+    // 파일의 내용을 읽어서 각 행을 하나의 List 저장함.
+    // 원본 파일을 List 형태로 저장. => 파싱목적. 의미있는 정보 추출위해서.
     private final List<String> lines;
 
     // class continues ...

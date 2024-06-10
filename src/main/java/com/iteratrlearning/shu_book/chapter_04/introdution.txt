@@ -5,7 +5,7 @@
 		- DocumentManagementSystem
 		- 의사가 사용하는 프로그램. 
 		- xray 사진, 치료 비용 청구서, 리포트(환자상담기록)
-		  편지 or e-main
+		  편지 or e-mail
 	
 	1. File Impoter : LSP(후행조건), 약한결합
 		- Importer IF
@@ -13,7 +13,7 @@
 		  ImageImporter, InvoiceImporter, 
 		  LetterImporter, ReportImporter
 		
-	2. 임포트 후 파싱 완료된 파일 정보 : SRP(단일 책임 원칙)
+	2. 임포트 후 파싱 완료된 파일 정보 : SRP(단일 책임 원칙), 응집도 높아짐.
 		- Document 
 		- TextFile
 		
