@@ -1,0 +1,68 @@
+
+- 문서 관리 시스템의 프로그램 구조
+
+	0. 문서관리시스템
+		- DocumentManagementSystem
+		- 의사가 사용하는 프로그램. 
+		- xray 사진, 치료 비용 청구서, 리포트(환자상담기록)
+		  편지 or e-main
+	
+	1. File Impoter : LSP(후행조건), 약한결합
+		- Importer IF
+		- 구현체
+		  ImageImporter, InvoiceImporter, 
+		  LetterImporter, ReportImporter
+		
+	2. 임포트 후 파싱 완료된 파일 정보 : SRP(단일 책임 원칙)
+		- Document 
+		- TextFile
+		
+	3. Import 된 File 의 속성 정보 : 재활용, 가독성, 유지보수성
+		- 쉽게 조회할 수 있는 구조의 메타 데이터로 활용하기 위함.
+		- Attributes
+
+	4. 검색 : SRP(단일 책임 원칙), 함수형 인터페이스 구현 Predicate<Document>, 캡슐화
+		- Query
+		
+	5. 예외
+		- UnknownFileTypeException
+
+
+
+
+
+- 단위 테스트 구조
+
+	0. 단위 테스트 클래스
+		- DocumentManagementSystemTest
+		
+	1. 단위 테스트용 메타 데이터
+	   
+	2. Test Case
+	   2.1 임포트 관련
+		- shouldImportFile
+		  대상 파일 임포트 -> 파싱 및 저장 -> Document -> 검증
+		- shouldImportLetterAttributes
+		  편지 임포트 -> Document -> 검증
+	    - shouldImportReportAttributes()
+	    - shouldImportImageAttributes()
+	    - shouldImportInvoiceAttributes()
+
+	   2.2 검색 관련
+	    - shouldBeAbleToSearchFilesByAttributes()
+
+	   2.2 파일 관련
+	    - shouldNotImportMissingFile()
+	    - shouldNotImportUnknownFile()
+	
+	3. 재사용성 고려
+	   3.1 각 단위테스트에서 반복 사용되는 검증 부분
+	   
+	    - assertIsReport()
+	    - assertAttributeEquals()
+	    - assertTypeIs()
+	
+	   3.2 onlyView 용(원본 보호) 
+	    - onlyDocument()
+
+
