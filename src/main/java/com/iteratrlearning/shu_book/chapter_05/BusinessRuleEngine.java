@@ -23,6 +23,9 @@ public class BusinessRuleEngine {
     }
 
     public void run() {
+    	// 매개변수 : Consumer<? super Rule>
+    	// 			매개값을 전달받아서 사용하고 아무것도 반환하지 않을 때.
+    	//			소비(Consume)한다고 함.
         this.rules.forEach(rule -> rule.perform(facts));
     }
 }
