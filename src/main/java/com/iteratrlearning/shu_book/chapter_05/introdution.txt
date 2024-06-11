@@ -22,7 +22,6 @@ WorkFlow 에 Business Logic 을 추가. RPA(지나 가는 이야기...)
       - 액션(Action) : 조건에 따른 수행해야 할 동작. 예) 할인, 알람, 메일
       
    따라서, Rule = Fact + Condition + Action 의 조합임.
-      - 
 
 
 1. WorkFlow 에 Business Logic 추가 변경 기능
