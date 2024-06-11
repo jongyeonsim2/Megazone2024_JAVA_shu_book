@@ -1,0 +1,61 @@
+
+
+WorkFlow 에 Business Logic 을 추가. RPA(지나 가는 이야기...)
+
+중요한 주제 및 키워드
+	객체 생성 모델링, 사용자 친화적 API 모델링, Builder 디자인 패턴,
+	SOLID OCP, TDD, DDD, 클래스 설계
+
+지역 변수 형식 추론, 폴스루(fall-through)
+
+
+0. 배경 지식
+
+   규칙(Rule) : 회사의 비즈니스 상의 규칙
+      - 어떤 제품에 관심이 쏠리고, 어떤 조건을 만족하면 => 특별 할인 실시(판촉 행사)
+      - 회사 지출이 평소보다 높다면 => 알람 실행( 경영부서에 지출 확인 )
+      - 어떤 고객이 CEO 이면, 영업부서로 메일 발송( 잠재 우량 고객 정보 공유 ) 
+   
+   규칙의 구성 요소 => Domain class 후보군
+      - 팩트(Fact) : 규칙을 확인할 수 있는 대상. 예) 어떤 제품, 지출, 어떤 고객
+      - 조건(Condition) : 액션이 발생되는 시점. 예) 팩트의 상태
+      - 액션(Action) : 조건에 따른 수행해야 할 동작. 예) 할인, 알람, 메일
+      
+   따라서, Rule = Fact + Condition + Action 의 조합임.
+      - 
+
+
+1. WorkFlow 에 Business Logic 추가 변경 기능
+
+   Main
+   BusinessRuleEngine
+   RuleBuilder
+   Rule
+   Facts
+   Condition
+   Action
+
+2. Business Logic 을 WorkFlow 에 실제 실행하지 않고,
+   Business Logic 에 대한 검사 기능
+   
+   SOLID 의 ISP(인터페이스 분리 원칙) 에 대한 설명.
+   - 실제 코드는 ISP 를 위반한 코드
+   - ISP 위반을 개선 => 1 번.
+     개선을 하다 보니,
+        객체 생성 모델링, 사용자 친화적 API 모델링, Builder 디자인 패턴,
+	    SOLID OCP, TDD, DDD, 클래스 설계 
+	 와 함께 고려하게 됨.
+   
+   InspectorTest
+   JobTitleCondition
+   ConditionalAction
+   Inspector
+   Diagnosis
+
+3.
+   SwitchExpressions
+   Stage
+
+
+5장 이후 => 디자인 패턴, 리팩터링, TDD, DDD, SW 아키텍처 => 시스템 아키텍처( AWS - 컨테이너 설계 ) 
+
