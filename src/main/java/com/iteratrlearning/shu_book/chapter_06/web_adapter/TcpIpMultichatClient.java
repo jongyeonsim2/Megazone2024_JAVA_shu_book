@@ -18,7 +18,7 @@ public class TcpIpMultichatClient {
 		try {
 			String serverIp = "127.0.0.1";
             // 소켓을 생성하여 연결을 요청한다.
-			Socket socket = new Socket(serverIp, 7777); 
+			Socket socket = new Socket(serverIp, 7779); 
 			System.out.println("서버에 연결되었습니다.");
 			Thread sender   = new Thread(new ClientSender(socket, args[0]));
 			Thread receiver = new Thread(new ClientReceiver(socket));
