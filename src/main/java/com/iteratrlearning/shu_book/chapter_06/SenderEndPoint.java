@@ -18,6 +18,8 @@ public class SenderEndPoint {
     public FollowStatus onFollow(final String userIdToFollow) {
         Objects.requireNonNull(userIdToFollow, "userIdToFollow");
 
+        // user : Joe 유저 객체
+        // userIdToFollow : John
         return twootr.onFollow(user, userIdToFollow);
     }
 // end::SenderEndPoint[]

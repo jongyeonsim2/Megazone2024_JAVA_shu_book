@@ -12,6 +12,7 @@ public class User {
     private final String id;
     private final byte[] password;
     private final byte[] salt;
+    // 구독자
     private final Set<User> followers = new HashSet<>();
     private final Set<String> following = new HashSet<>();
 
@@ -60,6 +61,7 @@ public class User {
     }
 
     public FollowStatus addFollower(final User user) {
+    	// follower 를 신규로 등록
         if (followers.add(user)) {
             user.following.add(id);
             return SUCCESS;

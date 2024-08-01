@@ -32,6 +32,12 @@ public class TwootrServer extends WebSocketServer {
 
     public static void main(String[] args) throws Exception {
 
+    	// TCP/IP 통신 => socket 통신
+    	/*
+    	 * 트우터 서버를 네트워크 상에서 기동
+    	 * - 주소할당이 필요. ip 주소, port 로 설정.
+    	 * - localhost : 127.0.0.1
+    	 */
         var websocketAddress = new InetSocketAddress("localhost", WEBSOCKET_PORT);
         var twootrServer = new TwootrServer(websocketAddress);
         twootrServer.start();
@@ -55,24 +61,32 @@ public class TwootrServer extends WebSocketServer {
     }
 
     private final TwootRepository twootRepository = new DatabaseTwootRepository();
+    // 트위터 기능을 구현한 핵심 클래스.
+    // Twootr 객체를 생성시, 데이터베이스 저장소 정보를 전달.
     private final Twootr twootr = new Twootr(new DatabaseUserRepository(), twootRepository);
+    // 서버에 접속한 클라이언트를 관리
     private final Map<WebSocket, WebSocketEndPoint> socketToEndPoint = new HashMap<>();
 
+    // main 함수에서 생성자를 호출해서 트우터 서버를 기동
     public TwootrServer(final InetSocketAddress address) {
         super(address, 1);
 
+        // 트우터 서비스를 위한 기본 데이터 저장
+        // 트위터 서비스를 위해서 사용자 2명을 등록.
         twootr.onRegisterUser(USER_NAME, PASSWORD);
         twootr.onRegisterUser(OTHER_USER_NAME, PASSWORD);
     }
 
     @Override
     public void onOpen(final WebSocket webSocket, final ClientHandshake clientHandshake) {
-        socketToEndPoint.put(webSocket, new WebSocketEndPoint(twootr, webSocket));
+        // 소켓 클라이언트 관리를 Map 등록. 
+    	socketToEndPoint.put(webSocket, new WebSocketEndPoint(twootr, webSocket));
     }
 
     @Override
     public void onClose(final WebSocket webSocket, final int i, final String s, final boolean b) {
-        socketToEndPoint.remove(webSocket);
+        // 통신 종료시 클라이언트를 삭제
+    	socketToEndPoint.remove(webSocket);
     }
 
     @Override
@@ -89,4 +103,10 @@ public class TwootrServer extends WebSocketServer {
     public void onError(final WebSocket webSocket, final Exception e) {
         e.printStackTrace();
     }
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		// 기동과 관련된 추가 처리
+	}
 }

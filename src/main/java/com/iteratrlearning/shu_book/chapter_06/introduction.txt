@@ -1,0 +1,132 @@
+1. 비즈니스 주제
+   트우트(트위트)
+   
+   - 중요한 도메인
+     팔로워(follower) : 구독자 
+     팔로잉(following) : 구독중
+     팔로우(follow) : 구독
+     
+     사용자간의 관계 다:다로 구성.
+     
+   class
+   - Twootr
+     트위터
+   - User : 사용자
+     KeyGenerator : pw 암호화
+   - Twoot : 트윗(메세지)
+   
+   Interface
+   - UserRepository, TwootRepository : 데이터 자장소
+     UserRepository 구현체 : InMemoryUserRepository
+     TwootRepository 구현체 : InMemoryTwootRepository
+   - ReceiverEndPoint : 트위(메세지) 수신
+   - SenderEndPoint : 트위(메세지) 송신
+   
+   enum
+   - DeleteStatus : 트위 상태
+   - FollowStatus : follow(구독) 상태
+   - RegistrationStatus : 등록 상태
+   
+   test case
+   - TwootrTest : 트윗을 구현하기 위한 TDD
+   - TestData : 테스트 케이스에서 사용되는 임시 데이터
+   
+2. 기반 기술
+   - 통신
+     7Layer protocol
+     
+     http : tcp/ip 기반
+       handshake( session 확립, 기반 tcp/ip ) 
+       request, response
+       request, response
+       request, response
+     
+     websocket : tcp/ip 기반
+       handshake( session 확립, 기반 tcp/ip ) 
+         C언어로 구현 - OS에서 제공되는 socket lib(저급)를 이용해야 함.
+                      language C => 저급
+                      OS 커널에서 제공되는 aip => 저급
+                      
+                      serverSocket
+                        배열로 clintSocket 을 관리.
+                        clintSocket = {{127.0.0.1, 9000}, {127.0.0.2, 9000}}
+                      clinetSocket 1 : 127.0.0.1, 9000
+                      clinetSocket 2 : 127.0.0.2, 9000
+       response
+       response
+       response
+       
+       예) 주식거래, 코인거래, 선물거래, 외환거래, 트위터, 카톡 => 실시간으로 가격이 변동됨.
+          시장 참여자(사용자, app client) 시장목록화면에서 
+          가격변동에 대해서 사용자가 귀찮게 resquest  를 하지 않아도,
+          최신 가격 정보를 서버가 알아서 response 해주면 더 좋지않을까?
+          
+          장점 : 클라인트가 굳이 request  를 하지 않아도 됨.
+                서버가 굳이 reqeust 를 받아서 처리하지 않아도 됨.
+     
+     
+          ChatServer : multi thread 동작
+          			   ChatServer 에서는 확립된 clientSocket를 배열로 관리하고 있지 았음.
+          			   => 부모( WebSocketServer )에서 관리하고 있다는 것.
+          ChatClient 1 : single thread 동작
+          ChatClient 2 : single thread 동작
+     
+   - 네트워크
+     OSI7 Layer
+     
+   - Thread
+     
+   - IO( JAVA의 Input Output, 입출력 )
+     1. 스트림(stream)
+        - 데이터를 운반하는데 사용되는 통로
+        - 단방향 통신
+          Input( 읽는 것, 빨대를 꼽음 ) : read 만 가능한 동작
+          Output( 보내는 것, 출력 ) : write 만 가능한 동작
+        - read, write 를 동시에 하려면, 스트림이 두 개가 있어야 함.
+          읽기 전용 스트림 : InputStream( 바이트 기반 )
+          쓰기 전용 스트림 : OutputStream( 바이트 기반 )
+        - 자바에서는 문자처리시 2byte 단위 처리
+          따라서, 문자 기반의 스트림이 존재함.( Reader, Writer )
+     2. 스트림의 종류
+        바이트 stream, 문자 stream, 보조 stream 
+     3. 스트림의 대상
+        메모리, file, 네트워크
+     4. 보조 Stream
+        데이터를 입출력하는 기능은 없지만, 스트림의 기능을 향상시키거나
+        새로운 기능을 추가할 경우 사용.
+        
+        바이트 기반의 보조 Stream
+        문자 기반의 보조 Stream
+     5. 바이트 기반의 보조 Stream
+        스스로 입출력을 할 수 없음.
+        
+        BufferedInputStream, BufferedOutputStream
+        
+        버퍼가 가득 차면, 버펌의 모든 내용을 출력 소스에 출력함.
+        버퍼를 비우고 다시 프로그램으로부터의 출력을 저장할 준비를 하게됨.
+        
+        마지막 출력 부분에서 출력소스에 쓰지 못하고 버퍼에 남아 있는 상태가 있어,
+        처리를 종료할 때 flush() 또는 close() 를 해야 함.
+        
+     6. 문자 기반의 보조 Stream
+     
+        BufferedReader, BufferedWriter ( 중요 )
+        버퍼를 이용해서 입출력의 효율을 높일 수 있도록 하는 보조 역할을 함.
+     
+     7. 표준입출력 
+        System.in( 입력 )
+        System.out( 출력 )
+        System.err( 에러 )
+     
+     8. 기타
+        file, 직렬화
+     
+      
+
+   - lib
+     통신, 네트워크, 프로토콜 => websocket lib
+
+   - java
+     Thread, IO
+   
+   

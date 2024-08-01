@@ -63,6 +63,13 @@ public class Twootr {
          * 참조 : https://www.daleseo.com/java8-optional-effective/
          * 
          */
+        
+        /*
+         * 트윗 사용자 정보가 저당된 Map에서 트윗 사용자 검색.
+         * - User 객체가 반환됨.
+         * - 패스워드 체크
+         * - 패스워드 체크가 성공이 되면, 인증된 사용자임.
+         */
         var authenticatedUser = userRepository
             .get(userId)
             .filter(userOfSameId ->
@@ -97,6 +104,7 @@ public class Twootr {
         authenticatedUser.ifPresent(user ->
         {
         	// 유효한 트우트 유저인 경우.
+        	// 트윗 수신이 가능하도록 설정.
             user.onLogon(receiverEndPoint);
             twootRepository.query(
                 new TwootQuery()
@@ -106,10 +114,12 @@ public class Twootr {
             userRepository.update(user);
         });
 
+        // 트윗 송신이 가능하도록 설정.
         return authenticatedUser.map(user -> new SenderEndPoint(user, this));
         // end::optional_onLogon[]
     }
 
+    // 트위 사용자 등록 
     public RegistrationStatus onRegisterUser(final String userId, final String password) {
     	/*
     	 * 해쉬(hash)와 솔트(salt)
@@ -117,6 +127,9 @@ public class Twootr {
     	 */
         var salt = KeyGenerator.newSalt();
         var hashedPassword = KeyGenerator.hash(password, salt);
+        
+        // 암호화된 유저의 패스워드를 사용해서 트윗 유저 객체를 생성.
+        // db 에 접근 가능한 사람이 다른 사용자의 인증 정보를 볼 수 없도록.
         var user = new User(userId, hashedPassword, salt, INITIAL_POSITION);
         /*
          * 신규 User이면 SUCCESS, 기존 User 이면 DUPLICATE
@@ -124,6 +137,7 @@ public class Twootr {
         return userRepository.add(user) ? RegistrationStatus.SUCCESS : RegistrationStatus.DUPLICATE;
     }
 
+    // follower(구독자) 를 User 객체에 추가
     FollowStatus onFollow(final User follow, final String userIdToFollow) {
         return userRepository.get(userIdToFollow)
             .map(userToFollow -> userRepository.follow(follow, userToFollow))
@@ -132,10 +146,11 @@ public class Twootr {
 
     Position onSendTwoot(final String id, final User user, final String content) {
         var userId = user.getId();
+        // 전송할 트윗을 List 에 저장.
         var twoot = twootRepository.add(id, userId, content);
         // tag::stream_onSendTwoot[]
         user.followers()
-            .filter(User::isLoggedOn)
+            .filter(User::isLoggedOn)// follower(구독자) 수신이 가능한 상태
             .forEach(follower ->
             {
                 follower.receiveTwoot(twoot);

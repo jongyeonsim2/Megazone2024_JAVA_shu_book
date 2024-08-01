@@ -5,6 +5,7 @@ import com.iteratrlearning.shu_book.chapter_06.*;
 import java.util.*;
 import java.util.function.Consumer;
 
+// 트윗 사용자가 전송한 트윗(메세지)를 저장 및 관리하는 내부 메모리 저장소.
 public class InMemoryTwootRepository implements TwootRepository {
     private final List<Twoot> twoots = new ArrayList<>();
 

@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public class InMemoryUserRepository implements UserRepository {
+	/*
+	 * 트윗 사용자를 관리하는 내부 메모리 저장소
+	 * key : 사용자 ID 
+	 * value : 사용자 객체
+	 */
     private final Map<String, User> userIdToUser = new HashMap<>();
 
     @Override
@@ -37,6 +42,9 @@ public class InMemoryUserRepository implements UserRepository {
         // Deliberately blank - since we don't actually persist this data
     }
 
+    // Joe 는 John 을 follow(구독)하려고 함.
+    // Joe
+    // John 에 Joe 를 folower(구독자) 로 등록.
     @Override
     public FollowStatus follow(final User follower, final User userToFollow) {
         return userToFollow.addFollower(follower);
