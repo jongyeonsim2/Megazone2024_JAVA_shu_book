@@ -21,7 +21,9 @@ import static com.iteratrlearning.shu_book.chapter_04.Attributes.*;
 
 <span class="fc" id="L22">        final Map&lt;String, String&gt; attributes = textFile.getAttributes();</span>
 <span class="fc" id="L23">        attributes.put(TYPE, &quot;LETTER&quot;);</span>
-<span class="fc" id="L24">        return new Document(attributes);</span>
+        
+        // LSP 후행조건을 만족
+<span class="fc" id="L26">        return new Document(attributes);</span>
     }
     // end::importFile[]
 }

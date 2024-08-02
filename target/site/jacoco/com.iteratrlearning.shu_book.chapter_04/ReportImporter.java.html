@@ -19,7 +19,9 @@ import static com.iteratrlearning.shu_book.chapter_04.Attributes.TYPE;
 
 <span class="fc" id="L20">        final Map&lt;String, String&gt; attributes = textFile.getAttributes();</span>
 <span class="fc" id="L21">        attributes.put(TYPE, &quot;REPORT&quot;);</span>
-<span class="fc" id="L22">        return new Document(attributes);</span>
+        
+        // LSP 후행조건을 만족
+<span class="fc" id="L24">        return new Document(attributes);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

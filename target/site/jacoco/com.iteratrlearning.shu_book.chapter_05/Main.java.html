@@ -1,26 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_05</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_05;
 
-<span class="nc" id="L3">public class Main {</span>
+/*
+ * 실제 WorkFlow 에 Business Logic 를 태우는 것.
+ */
+<span class="nc" id="L6">public class Main {</span>
 
     public static void main(final String...args) {
 
-<span class="nc" id="L7">        var env = new Facts();</span>
-<span class="nc" id="L8">        env.setFact(&quot;name&quot;, &quot;Bob&quot;);</span>
-<span class="nc" id="L9">        env.setFact(&quot;jobTitle&quot;, &quot;CEO&quot;);</span>
+    	// Facts
+<span class="nc" id="L11">        var env = new Facts(); // 지역 변수 형식 추론</span>
+        						// =&gt; 컴파일러가 자동으로 추론
+        
+        					// 명시적 형식 선언
+        					// Facts env = new Facts();
+<span class="nc" id="L16">        env.setFact(&quot;name&quot;, &quot;Bob&quot;);</span>
+<span class="nc" id="L17">        env.setFact(&quot;jobTitle&quot;, &quot;CEO&quot;);</span>
 
-<span class="nc" id="L11">        final var businessRuleEngine = new BusinessRuleEngine(env);</span>
+        // Condition, Action 은....?
+        // Rule( Condition, Action )
+        
+        // BusinessRule 관리 및 실행하는 클래스
+<span class="nc" id="L23">        final var businessRuleEngine = new BusinessRuleEngine(env);</span>
+        
+        // 엔진은 있는데, 필요한 Rule 은..... ?
 
-<span class="nc" id="L13">        final Rule ruleSendEmailToSalesWhenCEO =</span>
+        // Rule Builder
+        // RuleBuilder.when().then(); =&gt; 사용자 친화적 API( 복잡도가 낮음. )
+        // 1. 메소드 체이닝 =&gt; Rule 인스턴스가 생성됨.
+        //    RuleBuilder 를 사용해서 Rule 인스턴스 생성.
+        // 2. RuleBuilder 만 이용하면, 다양한 Business Logic Rule을
+        //    만드는 것을 공통화 할 수 있음. =&gt; SRP, OCP
+        // 3. Business Domain 을 적용.
+        //    어떤 고객이 CEO 이면, 영업팀으로 메일 발송( 기본 설계 )
+        //                 when... then...
+        
+        // 어떤 고객이 CEO 이면, 영업팀으로 메일 발송(rule) 을 만들고 싶음.
+        //    =&gt; ruleSendEmailToSalesWhenCEO =&gt; 변수명 자체가 도메인 룰 =&gt; DDD
+<span class="nc" id="L39">        final Rule ruleSendEmailToSalesWhenCEO =</span>
+        		// Builder pattern 사용 =&gt; SRP( Rule 만 생성 책임 )
                 RuleBuilder
-<span class="nc" id="L15">                  .when(facts -&gt; &quot;CEO&quot;.equals(facts.getFact(&quot;jobTitle&quot;)))</span>
-<span class="nc" id="L16">                  .then(facts -&gt; {</span>
-<span class="nc" id="L17">            var name = facts.getFact(&quot;name&quot;);</span>
-<span class="nc" id="L18">            System.out.println(&quot;Relevant customer!!!: &quot; + name);</span>
-<span class="nc" id="L19">        });</span>
+                  //1. RuleBuilder 인스턴스 생성.
+                  //   Condition(조건) 설정 =&gt; OCP 적용
+<span class="nc" id="L44">                  .when(facts -&gt; &quot;CEO&quot;.equals(facts.getFact(&quot;jobTitle&quot;)))</span>
+                  //2. 메소드 체인으로 RuleBuilder 의 멤버 메소드 then() 호출
+                  //   Rule 생성. Condition(조건), Action(수행하려는 동작) 을
+                  //   매개변수로 해서 Rule 인스턴스 생성. =&gt; OCP 적용
+<span class="nc" id="L48">                  .then(facts -&gt; {</span>
+<span class="nc" id="L49">						            var name = facts.getFact(&quot;name&quot;);</span>
+						            // &quot;잠재 우량 고객 ~~~~님&quot; 이라고 출력
+<span class="nc" id="L51">						            System.out.println(&quot;Relevant customer!!!: &quot; + name);</span>
+<span class="nc" id="L52">                  				}</span>
+                	   );
 
-<span class="nc" id="L21">        businessRuleEngine.addRule(ruleSendEmailToSalesWhenCEO);</span>
-<span class="nc" id="L22">        businessRuleEngine.run();</span>
+        // 생성된 Rule 은 전용 엔진에 등록해서 사용.
+<span class="nc" id="L56">        businessRuleEngine.addRule(ruleSendEmailToSalesWhenCEO);</span>
+        
+        // 생성된 Rule 사용.
+<span class="nc" id="L59">        businessRuleEngine.run();</span>
 
-<span class="nc" id="L24">    }</span>
+<span class="nc" id="L61">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

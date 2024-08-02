@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shu_book</a> &gt; <a href="index.source.html" class="el_package">com.iteratrlearning.shu_book.chapter_05</a> &gt; <span class="el_source">RuleBuilder.java</span></div><h1>RuleBuilder.java</h1><pre class="source lang-java linenums">package com.iteratrlearning.shu_book.chapter_05;
 
 public class RuleBuilder {
+	// 함수형 IF
     private Condition condition;
 
-<span class="nc" id="L6">    private RuleBuilder(Condition condition) {</span>
-<span class="nc" id="L7">        this.condition = condition;</span>
-<span class="nc" id="L8">    }</span>
+    // private 생성자.
+    // Business Rule 용으로 객체를 생성시켜야 함으로
+    // 외부에서 생성자를 사용할 수 없도록 해서,
+    // 내부에서 일정 형태의  Rule 이 되도록 해야 함.
+<span class="nc" id="L11">    private RuleBuilder(Condition condition) {</span>
+<span class="nc" id="L12">        this.condition = condition;</span>
+<span class="nc" id="L13">    }</span>
 
+    // static 메소드
+    // 반환형은 RuleBuilder 자기 자신 타입임.
+    // OCP 가 적용됨. 매개변수가 함수형 IF 임.
     public static RuleBuilder when(Condition condition) {
-<span class="nc" id="L11">        return new RuleBuilder(condition);</span>
+    	// 생성자 호출
+    	// 
+<span class="nc" id="L21">        return new RuleBuilder(condition);</span>
     }
 
+    // OCP 가 적용됨. 매개변수가 함수형 IF 임.
     public Rule then(Action action) {
-<span class="nc" id="L15">        return new Rule(condition, action);</span>
+<span class="nc" id="L26">        return new Rule(condition, action);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

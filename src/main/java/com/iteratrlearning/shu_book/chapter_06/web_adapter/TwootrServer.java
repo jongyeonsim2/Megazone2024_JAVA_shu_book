@@ -57,7 +57,9 @@ public class TwootrServer extends WebSocketServer {
          *     
          *     - 서버의 구분
          *       트위트 서버와 웹서버는 ip는 동일하지만, port 가 다름.(프로세스가 다름)
+         *     
          *       
+        */
         System.setProperty("org.eclipse.jetty.LEVEL", "INFO");
 
         var context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -74,7 +76,7 @@ public class TwootrServer extends WebSocketServer {
         jettyServer.start();
         jettyServer.dumpStdErr();
         jettyServer.join();
-        */
+       
     }
 
     private final TwootRepository twootRepository = new DatabaseTwootRepository();

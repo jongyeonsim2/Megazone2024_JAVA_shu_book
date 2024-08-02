@@ -18,7 +18,7 @@ public class BankStatementProcessor {
 <span class="nc" id="L18">        double total = 0;</span>
 <span class="nc bnc" id="L19" title="All 2 branches missed.">        for (final BankTransaction bankTransaction : bankTransactions) {</span>
 <span class="nc" id="L20">            total += bankTransaction.getAmount();</span>
-        }
+<span class="nc" id="L21">        }</span>
 <span class="nc" id="L22">        return total;</span>
     }
     
@@ -30,7 +30,7 @@ public class BankStatementProcessor {
 
 <span class="nc" id="L31">                total += bankTransaction.getAmount();</span>
             }
-        }
+<span class="nc" id="L33">        }</span>
 <span class="nc" id="L34">        return total;</span>
     }
     
@@ -43,7 +43,7 @@ public class BankStatementProcessor {
 <span class="nc bnc" id="L43" title="All 2 branches missed.">            if (bankTransaction.getDescription().equals(category)) {</span>
 <span class="nc" id="L44">                total += bankTransaction.getAmount();</span>
             }
-        }
+<span class="nc" id="L46">        }</span>
 <span class="nc" id="L47">        return total;</span>
     }
 }

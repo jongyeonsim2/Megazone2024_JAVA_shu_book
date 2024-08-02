@@ -22,32 +22,36 @@ import java.util.List;
     
     public static void main(final String[] args) throws Exception {
     		// 파일 접근
-<span class="nc" id="L25">            final Path path = Paths.get(RESOURCES + &quot;bank-data-simple.csv&quot;);</span>
+            //final Path path = Paths.get(RESOURCES + &quot;bank-data-simple.csv&quot;);
+            
+    		// java BankStatementAnalyzerSimple bank-data-simple.csv
+<span class="nc" id="L28">            final Path path = Paths.get(RESOURCES + args[0]);</span>
+            
             // 파일 내용 읽음
-<span class="nc" id="L27">            final List&lt;String&gt; lines = Files.readAllLines(path);</span>
+<span class="nc" id="L31">            final List&lt;String&gt; lines = Files.readAllLines(path);</span>
             
             // **************** 파일 읽기 *****************
             
-<span class="nc" id="L31">            double total = 0;</span>
+<span class="nc" id="L35">            double total = 0;</span>
             // 첫 행 ~ 마지막 행의 2번째 칼럼의 금액 정보 추출 후 누계
-<span class="nc bnc" id="L33" title="All 2 branches missed.">            for(final String line: lines) {</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            for(final String line: lines) {</span>
             	// &quot;,&quot; 를 기준으로 token 을 추출
-<span class="nc" id="L35">                String[] columns = line.split(&quot;,&quot;);</span>
+<span class="nc" id="L39">                String[] columns = line.split(&quot;,&quot;);</span>
                 // 두 번째 token(입출금 금액정보) 을 더하기 위한 자료형으로 변환
-<span class="nc" id="L37">                double amount = Double.parseDouble(columns[1]);</span>
+<span class="nc" id="L41">                double amount = Double.parseDouble(columns[1]);</span>
                 
                 
                 // ****************** 파싱 *********************
                 
                 // 누계
-<span class="nc" id="L43">                total += amount;</span>
+<span class="nc" id="L47">                total += amount;</span>
                 
                 // ***************** 데이터 처리 *****************
-            }
+<span class="nc" id="L50">            }</span>
 
             // ***************** 보고서 작성 ***************
-<span class="nc" id="L49">            System.out.println(&quot;The total for all transactions is &quot; + total);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L53">            System.out.println(&quot;The total for all transactions is &quot; + total);</span>
+<span class="nc" id="L54">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

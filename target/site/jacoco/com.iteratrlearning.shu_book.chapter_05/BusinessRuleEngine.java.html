@@ -3,22 +3,30 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * 회사의 WorkFlow 에 관련된 모든 Business Logic Rule 를 
+ * 가지고 있고, 관리, 실행하는 클래스
+ */
 public class BusinessRuleEngine {
 
+	// Rule 의 목록
     private final List&lt;Rule&gt; rules;
     private final Facts facts;
 
-<span class="nc" id="L11">    public BusinessRuleEngine(Facts facts) {</span>
-<span class="nc" id="L12">        this.facts = facts;</span>
-<span class="nc" id="L13">        this.rules = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L14">    }</span>
+<span class="nc" id="L16">    public BusinessRuleEngine(Facts facts) {</span>
+<span class="nc" id="L17">        this.facts = facts;</span>
+<span class="nc" id="L18">        this.rules = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L19">    }</span>
 
     public void addRule(Rule rule) {
-<span class="nc" id="L17">        this.rules.add(rule);</span>
-<span class="nc" id="L18">    }</span>
+<span class="nc" id="L22">        this.rules.add(rule);</span>
+<span class="nc" id="L23">    }</span>
 
     public void run() {
-<span class="nc" id="L21">        this.rules.forEach(rule -&gt; rule.perform(facts));</span>
-<span class="nc" id="L22">    }</span>
+    	// 매개변수 : Consumer&lt;? super Rule&gt;
+    	// 			매개값을 전달받아서 사용하고 아무것도 반환하지 않을 때.
+    	//			소비(Consume)한다고 함.
+<span class="nc" id="L29">        this.rules.forEach(rule -&gt; rule.perform(facts));</span>
+<span class="nc" id="L30">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

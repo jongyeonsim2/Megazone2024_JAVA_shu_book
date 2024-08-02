@@ -6,10 +6,10 @@
     public static void main(final String[] args) throws Exception {
 
 <span class="nc" id="L8">        final BankStatementAnalyzer bankStatementAnalyzer</span>
-<span class="nc" id="L9">                = new BankStatementAnalyzer();</span>
+                = new BankStatementAnalyzer();
 
 <span class="nc" id="L11">        final BankStatementParser bankStatementParser</span>
-<span class="nc" id="L12">                = new BankStatementCSVParser();</span>
+                = new BankStatementCSVParser();
 
         // 보고서를 html 포맷으로 생성.
         // 향후에 excle 포맷으로 새로운 요구 사항이 발생한다면.....
@@ -20,9 +20,9 @@
         // 이제는 콘솔에 출력하는게 아니고, html 로 출력해야 함.
         // 따라서, 마지막 매개변수에 HtmlExporter 인스턴스를 전달.
 <span class="nc" id="L22">        bankStatementAnalyzer.analyze(</span>
-<span class="nc" id="L23">        		&quot;bank-data-simple.csv&quot;, </span>
-<span class="nc" id="L24">        		bankStatementParser, </span>
-<span class="nc" id="L25">        		exporter);</span>
+        		&quot;bank-data-simple.csv&quot;, 
+        		bankStatementParser, 
+        		exporter);
 
 <span class="nc" id="L27">    }</span>
 }

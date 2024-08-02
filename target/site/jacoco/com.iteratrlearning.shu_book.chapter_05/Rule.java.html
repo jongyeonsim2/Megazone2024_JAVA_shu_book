@@ -2,18 +2,20 @@
 
 public class Rule {
 
+	// 함수형 IF
     private Condition condition;
+    // 함수형 IF
     private Action action;
 
-<span class="nc" id="L8">    public Rule(Condition condition, Action action) {</span>
-<span class="nc" id="L9">        this.condition = condition;</span>
-<span class="nc" id="L10">        this.action = action;</span>
-<span class="nc" id="L11">    }</span>
+<span class="nc" id="L10">    public Rule(Condition condition, Action action) {</span>
+<span class="nc" id="L11">        this.condition = condition;</span>
+<span class="nc" id="L12">        this.action = action;</span>
+<span class="nc" id="L13">    }</span>
 
     public void perform(Facts facts) {
-<span class="nc bnc" id="L14" title="All 2 branches missed.">        if(condition.evaluate(facts)){</span>
-<span class="nc" id="L15">            action.execute(facts);</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        if(condition.evaluate(facts)){</span>
+<span class="nc" id="L17">            action.execute(facts);</span>
         }
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L19">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

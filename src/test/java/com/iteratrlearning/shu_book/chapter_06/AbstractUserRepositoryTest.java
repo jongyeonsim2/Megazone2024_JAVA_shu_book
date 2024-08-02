@@ -31,6 +31,7 @@ public abstract class AbstractUserRepositoryTest
         repository.clear();
     }
 
+    // 사용자 등록 및 등록 확인
     @Test
     public void shouldLoadSavedUsers()
     {
@@ -39,6 +40,7 @@ public abstract class AbstractUserRepositoryTest
         assertThat(repository.get(USER_ID).get(), matchesUser());
     }
 
+    // 사용자 중복 등록 확인.
     @Test
     public void shouldNotAllowDuplicateUsers()
     {
@@ -47,14 +49,19 @@ public abstract class AbstractUserRepositoryTest
         assertFalse(repository.add(userWith(USER_ID)));
     }
 
+    // 트위트의 관계 설정 : follow(구독) 설정
     @Test
     public void shouldRecordFollowerRelationships()
     {
+    	// follow 설정을 위해서 트위트 사용자 2명을 생성.
         final User user = userWith(USER_ID);
         final User otherUser = userWith(OTHER_USER_ID);
 
+        // 사용자 관리 Map 에 등록
         repository.add(user);
         repository.add(otherUser);
+        
+        // follow(구독) 설정
         repository.follow(user, otherUser);
 
         final UserRepository reloadedRepository = newRepository();

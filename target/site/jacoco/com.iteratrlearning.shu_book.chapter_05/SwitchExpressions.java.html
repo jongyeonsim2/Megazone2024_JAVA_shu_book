@@ -3,17 +3,29 @@
 <span class="nc" id="L3">public class SwitchExpressions {</span>
 
     public static void main(String[] args) {
-<span class="nc" id="L6">        var dealStage = Stage.LEAD;</span>
-<span class="nc" id="L7">        var amount = 10;</span>
+    	// 형식 추론
+<span class="nc" id="L7">        var dealStage = Stage.LEAD;</span>
+<span class="nc" id="L8">        var amount = 10;</span>
 
-<span class="nc bnc" id="L9" title="All 5 branches missed.">        var forecastedAmount = amount * switch (dealStage) {</span>
-<span class="nc" id="L10">            case LEAD -&gt; 0.2;</span>
-<span class="nc" id="L11">            case EVALUATING -&gt; 0.5;</span>
-<span class="nc" id="L12">            case INTERESTED -&gt; 0.8;</span>
-<span class="nc" id="L13">            case CLOSED -&gt; 1;</span>
+<span class="nc bnc" id="L10" title="All 5 branches missed.">        var forecastedAmount = amount * switch (dealStage) {</span>
+<span class="nc" id="L11">            case LEAD -&gt; 0.2;</span>
+<span class="nc" id="L12">            case EVALUATING -&gt; 0.5;</span>
+<span class="nc" id="L13">            case INTERESTED -&gt; 0.8;</span>
+<span class="nc" id="L14">            case CLOSED -&gt; 1;</span>
         };
+        
+        /*
+        switch (dealStage) {
+        case LEAD:
+        	forecastedAmount = amount * 0.2;
+        	break;
+        case EVALUATING:
+        	forecastedAmount = amount * 0.5;
+        	break;
+		}
+        */
 
-<span class="nc" id="L16">        System.out.println(forecastedAmount);</span>
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L28">        System.out.println(forecastedAmount);</span>
+<span class="nc" id="L29">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

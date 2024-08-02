@@ -6,21 +6,61 @@ import java.util.Map;
 
 import static com.iteratrlearning.shu_book.chapter_04.Attributes.*;
 
-<span class="fc" id="L9">class InvoiceImporter implements Importer {</span>
+/*
+ * 
+ * 임포트 대상 파일 : patient.invoice
+ * 
+Dear Joe Bloggs
+
+Here is your invoice for the dental treatment that you received.
+
+Amount: $100
+
+regards,
+
+  Dr Avaj
+  Awesome Dentist
+  
+ * 
+ */
+
+/*
+ * InvoiceImporter 의 역할
+ * 
+ * 1. 큰 흐름
+ * - 파싱 대상 파일 : patient.invoice( 치료 비용 청구서 )
+ * - 중요한 항목
+ *   환자명, 본문, 청구 비용 
+ * - 중요한 항목이 key, value 형태로 구성 =&gt; map 저장
+ * - Document 로 반환 : LSP(후행조건) 원칙 준수함.
+ * 
+ * 2. 데이터 추출
+ * - TextFile 이 담당.
+ * 
+ * 
+ * 
+ * - DocumentManagementSystem.documents 에 등록 함.
+ * 
+ */
+<span class="fc" id="L45">class InvoiceImporter implements Importer {</span>
     private static final String NAME_PREFIX = &quot;Dear &quot;;
     private static final String AMOUNT_PREFIX = &quot;Amount: &quot;;
 
     // tag::importFile[]
     @Override
     public Document importFile(final File file) throws IOException {
-<span class="fc" id="L16">        final TextFile textFile = new TextFile(file);</span>
+<span class="fc" id="L52">        final TextFile textFile = new TextFile(file);</span>
 
-<span class="fc" id="L18">        textFile.addLineSuffix(NAME_PREFIX, PATIENT);</span>
-<span class="fc" id="L19">        textFile.addLineSuffix(AMOUNT_PREFIX, AMOUNT);</span>
+        // 환자명 추출
+<span class="fc" id="L55">        textFile.addLineSuffix(NAME_PREFIX, PATIENT);</span>
+        // 청구 비용 추출
+<span class="fc" id="L57">        textFile.addLineSuffix(AMOUNT_PREFIX, AMOUNT);</span>
 
-<span class="fc" id="L21">        final Map&lt;String, String&gt; attributes = textFile.getAttributes();</span>
-<span class="fc" id="L22">        attributes.put(TYPE, &quot;INVOICE&quot;);</span>
-<span class="fc" id="L23">        return new Document(attributes);</span>
+<span class="fc" id="L59">        final Map&lt;String, String&gt; attributes = textFile.getAttributes();</span>
+<span class="fc" id="L60">        attributes.put(TYPE, &quot;INVOICE&quot;);</span>
+        
+        // LSP 후행조건을 만족
+<span class="fc" id="L63">        return new Document(attributes);</span>
     }
     // end::importFile[]
 }

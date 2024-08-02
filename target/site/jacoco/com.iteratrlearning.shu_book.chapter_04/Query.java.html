@@ -6,27 +6,72 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toMap;
 
+
+/*
+ * public class 가 아님.
+ * 
+ * 캡슐화가 적용이 됨.
+ * 
+ * 자기 package 안에서만  Query 를 볼 수 있음.
+ * 다른 package 에서는 사용할 일 이 없다고 생각해서 범위 설정을 이렇게 함.
+ * 
+ * 따라서, 다른 package 에서 불필요한 class 가 보이지 않게 되어
+ * 복잡도가 낮아지게 됨. 
+ */
 class Query implements Predicate&lt;Document&gt; {
     private final Map&lt;String, String&gt; clauses;
 
+    //검색 조건 문자열 : &quot;patient:Joe,body:Diet Coke&quot; =&gt; map 형태로 변환
+    /*
+     * patient(key), Joe(value) =&gt; 환자명 조회 조건
+     * body(key), Diet Coke(value) =&gt; 본문 조회 조건
+     * 
+     * 
+     * 
+     * 
+patient.report
+
+Patient: Joe Bloggs =&gt; 환자명(patient key)
+
+On 5th January 2017 I examined Joe's teeth. =&gt; 본문(body key)
+We discussed his switch from drinking Coke to Diet Coke.
+No new problems were noted with his teeth.
+     * 
+     * 
+     * 
+     */
+    
+    
     static Query parse(final String query) {
-<span class="fc" id="L13">        return new Query(Arrays.stream(query.split(&quot;,&quot;))</span>
-<span class="fc" id="L14">              .map(str -&gt; str.split(&quot;:&quot;))</span>
-<span class="fc" id="L15">              .collect(toMap(x -&gt; x[0], x -&gt; x[1])));</span>
+    	/*
+    	 * 사용자의 API 접근성을 향상 시킴.(캡슐화가 적용이 됨.)
+    	 * 
+    	 * 1. 생성자를 private 로
+    	 * 2. 조회 메소드에서 생성자 호출
+    	 */
+<span class="fc" id="L52">        return new Query(Arrays.stream(query.split(&quot;,&quot;))</span>
+        		// 1. stream 생성. 구분자는 &quot;,&quot; 로 해서 생성.
+        		//    &quot;patient:Joe&quot; &quot;body:Diet Coke&quot;
+<span class="fc" id="L55">              .map(str -&gt; str.split(&quot;:&quot;))</span>
+                // 2. String 배열을 중간연산. 구분자는 &quot;:&quot;
+                //    {patient,Joe} {body,Diet Coke}
+<span class="fc" id="L58">              .collect(toMap(x -&gt; x[0], x -&gt; x[1])));</span>
+                // 3. Map&lt;Key, Value&gt; 형태로 최종 연산
+        		//    &lt;&quot;patient&quot;, &quot;Joe&quot;&gt; &lt;&quot;body&quot;, &quot;Diet Coke&quot;&gt;
     }
 
-<span class="fc" id="L18">    private Query(final Map&lt;String, String&gt; clauses) {</span>
-<span class="fc" id="L19">        this.clauses = clauses;</span>
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L63">    private Query(final Map&lt;String, String&gt; clauses) {</span>
+<span class="fc" id="L64">        this.clauses = clauses;</span>
+<span class="fc" id="L65">    }</span>
 
     @Override
     public boolean test(final Document document) {
-<span class="fc" id="L24">        return clauses.entrySet()</span>
-<span class="fc" id="L25">                      .stream()</span>
-<span class="fc" id="L26">                      .allMatch(entry -&gt; {</span>
-<span class="fc" id="L27">                          final String documentValue = document.getAttribute(entry.getKey());</span>
-<span class="fc" id="L28">                          final String queryValue = entry.getValue();</span>
-<span class="fc bfc" id="L29" title="All 4 branches covered.">                          return documentValue != null &amp;&amp; documentValue.contains(queryValue);</span>
+<span class="fc" id="L69">        return clauses.entrySet()</span>
+<span class="fc" id="L70">                      .stream()</span>
+<span class="fc" id="L71">                      .allMatch(entry -&gt; {</span>
+<span class="fc" id="L72">                          final String documentValue = document.getAttribute(entry.getKey());</span>
+<span class="fc" id="L73">                          final String queryValue = entry.getValue();</span>
+<span class="fc bfc" id="L74" title="All 4 branches covered.">                          return documentValue != null &amp;&amp; documentValue.contains(queryValue);</span>
                       });
     }
 }
