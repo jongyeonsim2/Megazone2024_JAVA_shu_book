@@ -45,12 +45,14 @@ package com.iteratrlearning.shu_book.chapter_06.dipEx;
  * 
  */
 
+// 고수준
 // 저수준에 있었던, switch 기능을 추출함. 저수준에서 분리.
 interface Switch {
 	void push();
 	boolean isOn();
 }
 
+// 추상화
 /*
  * Light, Radio, Fan 제품이 스위치의 push()로 모두 동작이 되도록 해야함.
  * 앞으로 추가되는 제품도 하나의 동일한 스위치로 push() 를 사용할 수 있게됨. (재사용)
@@ -101,7 +103,7 @@ class ElecPowerSwitch implements Switch {
 	
 }
 
-
+// 저수준
 class Light2 implements Powerable {
 
 	@Override
@@ -118,6 +120,7 @@ class Light2 implements Powerable {
 	
 }
 
+// 저수준
 class Fan implements Powerable {
 
 	@Override
