@@ -42,19 +42,115 @@ package com.iteratrlearning.shu_book.chapter_06.dipEx;
  *      Light, Radio, Fan 의 on/off 의 동작에 대한 각각의 상세 설정은
  *      각각 유지가 되어야 함.
  *      
- *      
- * 
- * 
- * 
  * 
  */
-		
+
+// 저수준에 있었던, switch 기능을 추출함. 저수준에서 분리.
+interface Switch {
+	void push();
+	boolean isOn();
+}
+
+/*
+ * Light, Radio, Fan 제품이 스위치의 push()로 모두 동작이 되도록 해야함.
+ * 앞으로 추가되는 제품도 하나의 동일한 스위치로 push() 를 사용할 수 있게됨. (재사용)
+ * 
+ * - Light, Radio, Fan 를 하나의 공통 타입으로 묶어야 함.
+ * - 각각의 제품은 동일한 방법으로 동작이 되지만,
+ *   상세 처리 방법은 각각의 제품에서 알아서 동작이 되어야 함.
+ *   
+ * 결론의 상기의 두 가지가 모두 만족되도록 하기 위해서 전원 on/off 전용 interface 를 만듬.
+ */
+interface Powerable {
+	void activate();
+	void deactivate();
+}
+
+/*
+ * 모든 제품에 대해서 스위치도 동작이 되어야 하고,
+ * 스위치 동작에 따른 각 제품의 전원 on/off 도 동작이 되어야 함.
+ * 
+ */
+class ElecPowerSwitch implements Switch {
+
+	private Powerable device;
+	private boolean on;
+	
+	// 의존 주입
+	public ElecPowerSwitch(Powerable device) {
+		this.device = device;
+	}
+	
+	@Override
+	public void push() {
+		// TODO Auto-generated method stub
+		if (isOn()) {
+			device.deactivate();
+			on = false;
+		} else {
+			device.activate();
+			on = true;
+		}
+	}
+
+	@Override
+	public boolean isOn() {
+		// TODO Auto-generated method stub
+		return on;
+	}
+	
+}
+
+
+class Light2 implements Powerable {
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		System.out.println("전등 켜짐.");
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		System.out.println("전등 꺼짐.");
+	}
+	
+}
+
+class Fan implements Powerable {
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		System.out.println("팬 켜짐.");
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		System.out.println("팬 꺼짐");
+	}
+	
+}
+
+
 		
 public class DipExp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		Powerable light = new Light2();
+		Switch lightSwitch = new ElecPowerSwitch(light);
+		lightSwitch.push();
+		lightSwitch.push();
+		
+		Powerable fan = new Fan();
+		Switch fanSwitch = new ElecPowerSwitch(fan);
+		fanSwitch.push();
+		fanSwitch.push();
+		
 	}
 
 }
