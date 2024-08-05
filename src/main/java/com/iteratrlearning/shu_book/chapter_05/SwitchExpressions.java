@@ -4,15 +4,15 @@ public class SwitchExpressions {
 
     public static void main(String[] args) {
     	// 형식 추론
-        var dealStage = Stage.LEAD;
-        var amount = 10;
-
-        var forecastedAmount = amount * switch (dealStage) {
-            case LEAD -> 0.2;
-            case EVALUATING -> 0.5;
-            case INTERESTED -> 0.8;
-            case CLOSED -> 1;
-        };
+//        var dealStage = Stage.LEAD;
+//        var amount = 10;
+//
+//        var forecastedAmount = amount * switch (dealStage) {
+//            case LEAD -> 0.2;
+//            case EVALUATING -> 0.5;
+//            case INTERESTED -> 0.8;
+//            case CLOSED -> 1;
+//        };
         
         /*
         switch (dealStage) {
@@ -25,6 +25,6 @@ public class SwitchExpressions {
 		}
         */
 
-        System.out.println(forecastedAmount);
+        //System.out.println(forecastedAmount);
     }
 }
